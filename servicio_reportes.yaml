@@ -1,0 +1,373 @@
+swagger: '2.0'
+info:
+  description: Servicio para generar reportes
+  version: 1.0.0
+  title: Servicio Reportes Kallsonys
+basePath: /OMS/Reportes/v1
+tags:
+  - name: Reporte
+    description: Generacion de Reportes
+schemes:
+  - http
+paths:
+  /reporte/noOrdenes:
+    get:
+      tags:
+        - Reporte
+      summary: Ordenes Cerradas
+      operationId: noOrdenes
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/OrdenesRsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/OrdenesRsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/OrdenesRsType'
+  /reporte/productosVendidos:
+    get:
+      tags:
+        - Reporte
+      summary: Productos mas Vendidos por fechas
+      operationId: productosVendidos
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+        - in: path
+          name: fechaDesde
+          description: Fecha desde
+          required: true
+          type: string
+          format: date-time
+        - in: path
+          name: fechaHasta
+          description: Fecha hasta
+          required: true
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/ProductosRsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ProductosRsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/ProductosRsType'
+  /reporte/categoriasVendidas:
+    get:
+      tags:
+        - Reporte
+      summary: Categorias mas Vendidas por fechas
+      operationId: categoriasVendidas
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+        - in: path
+          name: fechaDesde
+          description: Fecha desde
+          required: true
+          type: string
+          format: date-time
+        - in: path
+          name: fechaHasta
+          description: Fecha hasta
+          required: true
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/CategoriasRsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/CategoriasRsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/CategoriasRsType'
+  /reporte/ordenesAbiertas:
+    get:
+      tags:
+        - Reporte
+      summary: Ordenes Abiertas por mas Tiempo
+      operationId: ordenesAbiertas
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/Ordenes2RsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Ordenes2RsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/Ordenes2RsType'
+  /reporte/ordenesCerradas:
+    get:
+      tags:
+        - Reporte
+      summary: Ordenes Cerradas con mas Dinero
+      operationId: ordenesCerradas
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/Ordenes3RsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Ordenes3RsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/Ordenes3RsType'
+  /reporte/clientesFacturados:
+    get:
+      tags:
+        - Reporte
+      summary: Clientes Facturados en un rango de fechas
+      operationId: clientesFacturados
+      produces:
+        - application/json
+      parameters:
+        - name: headerRq
+          in: header
+          description: Cabecera estandar
+          required: true
+          type: string
+        - name: serviceID
+          in: header
+          description: Service Id Kallsonys
+          required: true
+          type: string
+        - in: path
+          name: fechaDesde
+          description: Fecha desde
+          required: true
+          type: string
+          format: date-time
+        - in: path
+          name: fechaHasta
+          description: Fecha hasta
+          required: true
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: EXITO
+          schema:
+            $ref: '#/definitions/ClientesRsType'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ClientesRsType'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/ClientesRsType'
+definitions:
+  StatusType:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        description: Código de status.
+      statusDesc:
+        type: string
+        description: Descripción de estatus.
+    description: Status de respuesta.
+    xml:
+      name: StatusType
+  OrdenesRsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/OrdenRsType'      
+    description: Ordenes.
+  ProductosRsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/ProductoRsType'      
+    description: Ordenes.
+  CategoriasRsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/CategoriaRsType'      
+    description: Ordenes.
+  Ordenes2RsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/Orden2RsType'      
+    description: Ordenes.
+  Ordenes3RsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/Orden3RsType'      
+    description: Ordenes.
+  ClientesRsType:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusType'
+      direcciones:
+        $ref: '#/definitions/ClienteRsType'      
+    description: Ordenes.
+  OrdenRsType:
+    type: object
+    properties:
+      cantidad:
+        type: integer
+      total:
+        type: integer
+      mesCierre:
+        type: string
+      anioCierre:
+        type: string
+  ProductoRsType:
+    type: object
+    properties:
+      idProducto:
+        type: integer
+      producto:
+        type: string
+      cantidad:
+        type: integer
+      mes:
+        type: integer
+      anio:
+        type: integer
+  CategoriaRsType:
+    type: object
+    properties:
+      idCategoria:
+        type: integer
+      categoria:
+        type: string
+      cantidad:
+        type: integer
+      mes:
+        type: integer
+      anio:
+        type: integer
+  Orden2RsType:
+    type: object
+    properties:
+      idOrden:
+        type: integer
+      dias:
+        type: integer
+      fechaSolicitud:
+        type: string
+      estado:
+        type: string
+  Orden3RsType:
+    type: object
+    properties:
+      idOrden:
+        type: integer
+      valorTotal:
+        type: integer
+      mes:
+        type: integer
+      anio:
+        type: integer
+  ClienteRsType:
+    type: object
+    properties:
+      idCliente:
+        type: integer
+      nombres:
+        type: string
+      valorTotal:
+        type: integer
+      mes:
+        type: integer
+      anio:
+        type: integer
